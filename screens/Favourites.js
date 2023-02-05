@@ -4,11 +4,12 @@ import {
     Text
 } from 'react-native';
 
+
 const Favourites = () => {
     return (
         <View>
             <Text>Favourites</Text>
-        </View>
+        </View> 
     )
 }
 

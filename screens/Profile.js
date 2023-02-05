@@ -6,10 +6,10 @@ import { AuthContext } from "../navigation/AuthProvider";
 const Profile = () => {
   const {user, logout} = useContext(AuthContext);
   return (
-    <View style={styles.container}>
-        <Text style={styles.text}>Welcome {user.uid}</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>Welcome {user.email}</Text>
         <FormButton buttonTitle='Logout' onPress={() => logout()}/>
-    </View>
+      </View>
   )
 }
 
