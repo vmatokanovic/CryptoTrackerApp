@@ -6,11 +6,8 @@ import {
 
 import FormInput from '../components/FormInput'
 
-const Search = () => {
+const SearchScreen = () => {
     const [search, setSearch] = useState(null);
-    useEffect( () => {
-        console.log(`Search is: ${search}`)
-    }, [search])
     return (
         <View>
             <FormInput labelValue={search} onChangeText={(searchTerm) => setSearch(searchTerm)} placeholderText="Search crypto..."/>
@@ -18,4 +15,4 @@ const Search = () => {
     )
 }
 
-export default Search;
+export default SearchScreen;

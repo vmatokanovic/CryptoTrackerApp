@@ -2,6 +2,8 @@ import { async } from '@firebase/util';
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { Children, createContext, useState } from 'react'
 import { auth } from '../firebase';
+import { db } from '../firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 export const AuthContext = createContext();
 
@@ -22,6 +24,9 @@ export const AuthProvider = ({children}) => {
             register: async (email, password) => {
                 try{
                     await createUserWithEmailAndPassword(auth, email, password);
+                    await setDoc(doc(db, "users", email), {
+                        favourites: []
+                    });
                 } catch(e){
                     console.log(e);
                 }
