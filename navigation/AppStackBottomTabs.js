@@ -13,14 +13,15 @@ const AppStackBottomTabs = () => {
     <Tab.Navigator 
         initialRouteName="Home"
         screenOptions={{
+        tabBarShowLabel: false,
         headerShown: false,
         tabBarActiveTintColor: '#18c68b',
         tabBarInactiveTintColor: '#3d4542',
         tabBarStyle: {
             height: 60,
-            backgroundColor: '#0b0d11',
-            borderColor: '#18c68b',
-            borderTopWidth: 1
+            backgroundColor: '#14181b',
+            borderColor: '#364540',
+            borderTopWidth: 0.5,
         } 
     }}>
         <Tab.Screen name={"Home"} component={HomeScreen} options={{

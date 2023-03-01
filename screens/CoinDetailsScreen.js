@@ -83,15 +83,29 @@ const CoinDetailsScreen = () => {
                 <LineChart.Gradient />
               </LineChart.Path>
               <LineChart.CursorCrosshair color={percentageColor}>
-                <LineChart.Tooltip 
-                  textStyle={{
-                  backgroundColor: 'black',
-                  borderRadius: 4,
-                  color: 'white',
-                  fontSize: 12,
-                  padding: 4,
-                  }}
-                />
+                <LineChart.Tooltip>
+                  <LineChart.PriceText 
+                    precision={6}
+                    style={{
+                      backgroundColor: percentageColor,
+                      borderRadius: 4,
+                      color: 'white',
+                      fontSize: 12,
+                      padding: 4,
+                      }}
+                  />
+                </LineChart.Tooltip>
+                <LineChart.Tooltip position="bottom">
+                  <LineChart.DatetimeText 
+                    style={{
+                      backgroundColor: percentageColor,
+                      borderRadius: 4,
+                      color: 'white',
+                      fontSize: 12,
+                      padding: 4,
+                      }}
+                  />
+                </LineChart.Tooltip>
               </LineChart.CursorCrosshair>
             </LineChart>
           </GestureHandlerRootView>

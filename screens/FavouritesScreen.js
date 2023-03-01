@@ -6,6 +6,7 @@ import { AuthContext } from '../navigation/AuthProvider';
 import { getFavouriteCoins } from '../services/requests';
 import CoinItem from '../components/CoinItem';
 import { useFavouriteList } from '../Contexts/FavouriteListContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const FavouritesScreen = () => {
 
@@ -37,10 +38,16 @@ const FavouritesScreen = () => {
   }, [favouriteCoinIds]);
 
   return (
-    <View style={{flex: 1, justifyContent: 'center'}}>
+    <View style={{flex: 1}}>
+      <View style={{alignItems: 'center'}}>
+        <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+          <MaterialCommunityIcons name="playlist-star" size={25} color="#18c68b" />
+          <Text style={{fontFamily: 'Roboto-Regular', color: '#18c68b', fontSize: 25, letterSpacing: 1, paddingHorizontal: 20, paddingBottom: 10}}>Favourite coins</Text>
+        </View>
+      </View>
       { isArrayEmpty ? (
-        <View style={{alignItems: 'center'}}>
-          <Text style={{color: '#3d4542', fontSize: 24, fontWeight: 'bold'}}>Your favourite coins list is empty!</Text>
+        <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={{color: '#3d4542', fontSize: 18, fontWeight: 'bold'}}>Your favourite coins list is empty!</Text>
         </View>
         
         )

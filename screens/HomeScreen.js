@@ -9,6 +9,7 @@ import {
 
 import CoinItem from '../components/CoinItem';
 import { getMarketData } from '../services/requests';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const HomeScreen = () => {
     const [coins, setCoins] = useState([]);
@@ -39,7 +40,11 @@ const HomeScreen = () => {
     }, [])
 
     return (
-        <View>
+        <View style={{ alignItems: 'center'}}>
+            <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+                <FontAwesome5 name="coins" size={25} color="#18c68b" />            
+                <Text style={{alignItems: 'center' ,fontFamily: 'Roboto-Regular', fontWeight: '500', color: '#18c68b', fontSize: 25, letterSpacing: 1, paddingHorizontal: 20, paddingBottom: 10}}>Cryptocurrencies</Text>
+            </View>
             <FlatList 
                 data={coins} 
                 renderItem={({item}) => <CoinItem marketCoin={item} />}

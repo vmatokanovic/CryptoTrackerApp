@@ -31,7 +31,7 @@ const Routes = () => {
     }}>
       <View style={styles.container}>
         {user ? <AppStack/> : <AuthStack/> }
-        <StatusBar style="light" />
+        <StatusBar barStyle={'light-content'} backgroundColor="#0b0d11"/>
       </View>
     </NavigationContainer>
   )

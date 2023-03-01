@@ -37,27 +37,35 @@ function OnboardingScreen({navigation}) {
     NextButtonComponent={Next}
     SkipButtonComponent={Skip}
     DoneButtonComponent={Done}
-    bottomBarColor='#f5b301'
+    bottomBarColor='#18c68b'
+    titleStyles={{
+        color: '#18c68b',
+        fontWeight: 'bold',
+        letterSpacing: 2
+    }}
+    subTitleStyles={{
+        color: '#caffea'
+    }}
     onSkip={() => navigation.navigate("Login")}
     onDone={() => navigation.navigate("Login")}
     pages={[
         {
-            backgroundColor: '#2a2e34',
-            image: <Image source={require('../assets/circle.png')} style={{width: 250, height: 250}}/>,
+            backgroundColor: '#0b0d11',
+            image: <Image source={require('../assets/onboardingCoins.png')} style={{width: 250, height: 250}}/>,
             title: 'Welcome!',
             subtitle: 'Track prices of all cryptocurrencies in real-time, past time and read informations about crypto',
         },
         {
-            backgroundColor: '#2a2e34',
-            image: <Image source={require('../assets/square.png')} style={{width: 250, height: 250}}/>,
+            backgroundColor: '#0b0d11',
+            image: <Image source={require('../assets/onboardingProfile.png')} style={{width: 250, height: 250}}/>,
             title: 'Setup profile',
             subtitle: 'Register new profile or login with an existing one',
         },
         {
-            backgroundColor: '#2a2e34',
-            image: <Image source={require('../assets/triangle.png')} style={{width: 250, height: 250}}/>,
+            backgroundColor: '#0b0d11',
+            image: <Image source={require('../assets/onboardingFavourites.png')} style={{width: 250, height: 250}}/>,
             title: 'Favourites',
-            subtitle: 'Add your favourite cryptocurrency to your shortlist',
+            subtitle: 'Add your favourite coins to your favourites list',
         }
     ]}
     />

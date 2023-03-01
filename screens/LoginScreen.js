@@ -14,6 +14,7 @@ import SocialButton from '../components/SocialButton';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { AuthContext } from '../navigation/AuthProvider';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
 
 const LoginScreen = ({navigation}) => {
@@ -24,17 +25,20 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <FormInput labelValue={email} onChangeText={(userEmail) => setEmail(userEmail)} placeholderText="Enter e-mail..."/>
-      <FormInput labelValue={password} onChangeText={(userPassword) => setPassword(userPassword)} placeholderText="Enter password..." secureTextEntry={true}/>
-      <FormButton buttonTitle='Sign in' onPress={() => login(email, password)}/>
-      <TouchableOpacity style={styles.signupButton}>
-        <Text style={{color: 'red'}}>Forgot your password?</Text>
-      </TouchableOpacity>
+      <View style={{paddingBottom: 15}}>
+        <FontAwesome5 name="user" size={100} color="#18c68b" />
+      </View>
       
-      <SocialButton buttonTitle='Sign in with Facebook' backgroundColor='#fff' color='black'/>
-      <SocialButton buttonTitle='Sign in with Google' backgroundColor='#fff' color='black'/>
+      <FormInput iconName="email" labelValue={email} onChangeText={(userEmail) => setEmail(userEmail)} placeholderText="Enter e-mail..."/>
+      <FormInput iconName="vpn-key" labelValue={password} onChangeText={(userPassword) => setPassword(userPassword)} placeholderText="Enter password..." secureTextEntry={true}/>
+      <View style={styles.signinButtonContainer}>
+        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => login(email, password)}>
+          <Text style={{color: '#14181b', fontSize: 22, fontWeight: 'bold', paddingEnd: 15}}>Sign in</Text>
+          <FontAwesome name="sign-in" size={30} color="#14181b" />
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate("Signup")}>
-        <Text style={{color: 'blue', fontWeight:'bold'}}>Don't have an account? Sign up now!</Text>
+        <Text style={{color: '#18c68b', fontWeight:'bold'}}>Don't have an account? Sign up now!</Text>
       </TouchableOpacity>
     </View>
   );
@@ -54,5 +58,14 @@ const styles = StyleSheet.create({
   signupButton:{
     padding: 10,
     fontSize: 20
+  },
+  signinButtonContainer:{
+    backgroundColor: '#18c68b', 
+    height: 60, 
+    width: '100%',
+    borderRadius: 10,
+    justifyContent: 'center', 
+    alignItems:'center',
+    marginTop: 50
   }
 });

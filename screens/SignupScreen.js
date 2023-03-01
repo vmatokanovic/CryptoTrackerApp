@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native'
 import React, { useContext, useState } from 'react'
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
@@ -6,6 +6,7 @@ import SocialButton from '../components/SocialButton';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { AuthContext } from '../navigation/AuthProvider';
+import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 
 const SignupScreen = ({navigation}) => {
     const [email, setEmail] = useState();
@@ -15,29 +16,31 @@ const SignupScreen = ({navigation}) => {
     const {register} = useContext(AuthContext);
 
     const handleSignUp = () => {
-      alert('Sign up clicked!');
-      createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-      navigation.navigate("Login");
+      if(password === confirmPassword){
+        register(email, password);
+      } else {
+        Alert.alert('Error', 'Password and repeat password do not match!');
+      }
     }
 
   return (
     <View style={styles.container}>
-        <Text style={styles.text}>Create an account</Text>
-      <FormInput labelValue={email} onChangeText={(userEmail) => setEmail(userEmail)} placeholderText="Enter e-mail..."/>
-      <FormInput labelValue={password} onChangeText={(userPassword) => setPassword(userPassword)} placeholderText="Enter password..." secureTextEntry={true}/>
-      <FormInput labelValue={confirmPassword} onChangeText={(userPassword) => setConfirmPassword(userPassword)} placeholderText="Repeat password..." secureTextEntry={true}/>
-      <FormButton buttonTitle='Sign up' onPress={() => register(email, password)}/>
-      <SocialButton buttonTitle='Sign up with Facebook' backgroundColor='#fff' color='black'/>
-      <SocialButton buttonTitle='Sign up with Google' backgroundColor='#fff' color='black'/>
+      <View style={{paddingBottom: 20}}>
+        <FontAwesome5 name="user-plus" size={100} color="#18c68b" />
+      </View>
+      <FormInput iconName="email" labelValue={email} onChangeText={(userEmail) => setEmail(userEmail)} placeholderText="Enter e-mail..."/>
+      <FormInput iconName="vpn-key" labelValue={password} onChangeText={(userPassword) => setPassword(userPassword)} placeholderText="Enter password..." secureTextEntry={true}/>
+      <FormInput iconName="vpn-key" labelValue={confirmPassword} onChangeText={(userPassword) => setConfirmPassword(userPassword)} placeholderText="Repeat password..." secureTextEntry={true}/>
+      
+      <View style={styles.registerButtonContainer}>
+        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => handleSignUp()}>
+          <Text style={{color: '#14181b', fontSize: 22, fontWeight: 'bold', paddingEnd: 15}}>Register</Text>
+          <FontAwesome name="sign-in" size={30} color="#14181b" />
+        </TouchableOpacity>
+      </View>
+
       <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate("Login")}>
-        <Text style={{color: 'blue', fontWeight:'bold'}}>Already have an account? Sign in now!</Text>
+        <Text style={{color: '#18c68b', fontWeight:'bold'}}>Already have an account? Sign in now!</Text>
       </TouchableOpacity>
     </View>
   )
@@ -62,5 +65,14 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         paddingBottom: 50
+    },
+    registerButtonContainer:{
+      backgroundColor: '#18c68b', 
+      height: 60, 
+      width: '100%',
+      borderRadius: 10,
+      justifyContent: 'center', 
+      alignItems:'center',
+      marginTop: 50
     }
   });

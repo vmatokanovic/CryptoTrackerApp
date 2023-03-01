@@ -50,9 +50,10 @@ const AuthStack = () => {
         component={SignupScreen}
         options={({navigation}) => ({
           title: '',
+          headerTintColor: '#18c68b',
           headerStyle: {
-            backgroundColor: 'white',
-            elevation: 0
+            backgroundColor: '#0b0d11',
+            elevation: 0,
           }
         })}
         />

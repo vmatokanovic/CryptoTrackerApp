@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import {windowHeight, windowWidth} from '../utils/Dimensions';
+import { MaterialIcons } from '@expo/vector-icons';
 
-const FormInput = ({labelValue, placeholderText, ...rest}) => {
+const FormInput = ({labelValue, placeholderText, iconName, ...rest}) => {
   return (
     <View style={styles.inputContainer}>
+      <MaterialIcons name={iconName} size={24} color="black" />
       <TextInput
         value={labelValue}
         style={styles.input}
@@ -21,12 +23,12 @@ export default FormInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginTop: 5,
-    marginBottom: 10,
+    marginVertical: 5,
+    paddingHorizontal: 5,
     width: '100%',
     height: windowHeight / 15,
     borderColor: '#ccc',
-    borderRadius: 3,
+    borderRadius: 10,
     borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
