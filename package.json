@@ -8,6 +8,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
+  "overrides": {
+    "react-native-gesture-handler": "^2.9.0"
+  },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@rainbow-me/animated-charts": "^1.0.0-alpha.6",
@@ -34,7 +37,8 @@
     "react-native-svg": "13.4.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-wagmi-charts": "^2.3.0",
-    "expo-image-picker": "~14.0.2"
+    "expo-image-picker": "~14.0.2",
+    "expo-notifications": "~0.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

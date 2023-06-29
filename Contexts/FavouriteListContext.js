@@ -1,54 +1,81 @@
-import React, { useContext, createContext, useState, useEffect } from 'react'
-import { collection, getDoc, doc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'; 
-import { db } from '../firebase';
-import { AuthContext } from '../navigation/AuthProvider';
-import { async } from '@firebase/util';
+import React, { useContext, createContext, useState, useEffect } from "react";
+import {
+  collection,
+  getDoc,
+  doc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
+import { db } from "../firebase";
+import { AuthContext } from "../navigation/AuthProvider";
+import { async } from "@firebase/util";
+import * as Notifications from "expo-notifications";
 
 const FavouriteListContext = createContext();
 export const useFavouriteList = () => useContext(FavouriteListContext);
 
-const FavouriteListProvider = ({children}) => {
-    const [favouriteCoinIds, setFavouriteCoinIds] = useState([]);
+const FavouriteListProvider = ({ children }) => {
+  const [favouriteCoinIds, setFavouriteCoinIds] = useState([]);
 
-    const {user} = useContext(AuthContext);
-    const docRef = doc(db, "users", user.email);
+  const { user } = useContext(AuthContext);
+  const docRef = doc(db, "users", user.email);
 
-    const getFavouriteListData = async() => {
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            // console.log("Document data:", docSnap.data());
-            const favouriteListIds = docSnap.data().favourites;
-            console.log("favouriteList:", favouriteListIds);
-            setFavouriteCoinIds(favouriteListIds);
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
+  const getFavouriteListData = async () => {
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data());
+      const favouriteListIds = docSnap.data().favourites;
+      console.log("favouriteList:", favouriteListIds);
+      setFavouriteCoinIds(favouriteListIds);
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
     }
+  };
 
-    useEffect( () => {
-        getFavouriteListData()
-    }, [])
+  useEffect(() => {
+    getFavouriteListData();
+  }, []);
 
-    const storeFavouriteCoinId = async (coinId) => {
-        await updateDoc(docRef, {
-            favourites: arrayUnion(coinId)
-        });
-        getFavouriteListData()
-    }
+  const storeFavouriteCoinId = async (coinId) => {
+    await updateDoc(docRef, {
+      favourites: arrayUnion(coinId),
+    });
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "New favourite coin!",
+        body: "You have added coin with ID: " + coinId,
+        data: { coinId },
+      },
+      trigger: null, // Set trigger to null for an instant notification
+    });
+    getFavouriteListData();
+  };
 
-    const removeFavouriteCoinId = async (coinId) => {
-        await updateDoc(docRef, {
-            favourites: arrayRemove(coinId)
-        });
-        getFavouriteListData()
-    }
+  const removeFavouriteCoinId = async (coinId) => {
+    await updateDoc(docRef, {
+      favourites: arrayRemove(coinId),
+    });
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Removed favourite coin!",
+        body: "You have removed coin with ID: " + coinId,
+        data: { coinId },
+      },
+      trigger: null, // Set trigger to null for an instant notification
+    });
+    getFavouriteListData();
+  };
 
   return (
-    <FavouriteListContext.Provider value={{favouriteCoinIds, storeFavouriteCoinId, removeFavouriteCoinId}}>
-        {children}
+    <FavouriteListContext.Provider
+      value={{ favouriteCoinIds, storeFavouriteCoinId, removeFavouriteCoinId }}
+    >
+      {children}
     </FavouriteListContext.Provider>
-  )
-}
+  );
+};
 
-export default FavouriteListProvider
+export default FavouriteListProvider;
